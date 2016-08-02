@@ -278,6 +278,15 @@ private:
  * into the repository.  Alternatively, you can generate such files by
  * hand.
  *
+ * \subsection latex_sec Didn't you say Doxygen can generate LaTeX manuals?
+ * \htmlonly
+ * Yes.  You can find the one for this site
+ * <a href=refman.pdf>here</a>.
+ * \endhtmlonly
+ * \latexonly
+ * Yes.  You're looking at it.
+ * \endlatexonly
+ *
  * \section gui_sec What about the beautiful GUIs you showed us?
  * <tt>lcov</tt> and <tt>doxywizard</tt> are great tools for a personal
  * workstation, but not-so-great tools for computing clusters.  I
@@ -285,6 +294,6 @@ private:
  * use <tt>gcov</tt> and <tt>doxygen</tt> too, since they're available
  * on more systems.  If you desperately need the HTML files generated
  * by <tt>lcov</tt>, they are available
- * <a href="../../lcovFiles/index.html">here</a>.
+ * <a href="lcovFiles/index.html">here</a>.
  *
  */
