@@ -31,4 +31,4 @@ Morpheus_Vector_normTest.exe: Morpheus_Vector_normTest.o Morpheus_Vector.o
 	g++ $(LFLAGS) -o Morpheus_Vector_normTest.exe Morpheus_Vector_normTest.o Morpheus_Vector.o
 
 clean:
-	rm *.o *.exe
+	rm -f *.o *.exe *.gcda *.gcno *.gcov
