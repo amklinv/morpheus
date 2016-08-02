@@ -155,7 +155,7 @@ public:
    *
    * Example:
    * <tt>\n
-   * 4x3 Matrix\n
+   * 4x3 %Matrix\n
    * 1 0 0\n
    * 0 1 0\n
    * 0 0 1\n
