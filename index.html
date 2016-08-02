@@ -40,15 +40,103 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 <h1>Welcome to Morpheus!</h1><p>Morpheus is an exciting new linear algebra package. It currently contains a dense matrix and dense vector class, but we hope to expand its features as it grows in popularity.</p>
-<h2><a class="anchor" id="other_sec">
-How does Morpheus compare to other linear algebra packages?</a></h2>
-<p>It has way fewer features, but what we lack in features, we make up for in bugs.</p>
-<h2><a class="anchor" id="cool_sec">
-Is Morpheus greater than sliced bread?</a></h2>
-<p>That's not even a fair question. Morpheus is the best thing that's ever happened to math since the discovery of 0. Speaking of which, the history of the number 0 is super-cool and can be found here: <a href="https://en.wikipedia.org/wiki/0_%28number%29#History">https://en.wikipedia.org/wiki/0_%28number%29#History</a></p>
-<h2><a class="anchor" id="point_sec">
-Is this entire project just a Doxygen exercise?</a></h2>
-<p>No. It is also an exercise on using code coverage tools such as gcov. </p>
+<p>Okay, so Morpheus is really just a test project for an ATPESC tutorial...but at least it has a cool name!</p>
+<h2><a class="anchor" id="gcov_section">
+gcov tutorial</a></h2>
+<ol type="1">
+<li>Please log in to vesta<br/>
+ <code>ssh &lt;username&gt;@vesta.alcf.anl.gov</code></li>
+<li>Clone the Morpheus repository<br/>
+ <code>git clone <a href="https://github.com/amklinv/morpheus.git">https://github.com/amklinv/morpheus.git</a></code></li>
+<li>Build the tests<br/>
+ <code>cd morpheus</code><br/>
+ <code>make</code><br/>
+ Note that the proper coverage flags have been added to your makefile. Also note that this step generates a set of .gcno files for you.</li>
+<li>Run the tests<br/>
+ <code>./runtests</code><br/>
+ <code>runtests</code> is a perl script which runs the three tests for you. This step generates the .gcda files.</li>
+<li>Run gcov on the Morpheus source code<br/>
+ <code>gcov *.cpp</code><br/>
+ Ignore the system files; we are not responsible for testing them. This will generate our .gcov files</li>
+<li>Examine Morpheus_Vector.cpp.gcov and Morpheus_Matrix.cpp.gcov<br/>
+ These are regular text files, so you may use your text editor of choice (vim, emacs, eclipse...or you can just <code>cat</code> the file). Lines that have been tested are marked by the number of times they were executed. Lines that have NOT been tested are preceeded by <code>#####</code>. Dashes denote lines that contain no instructions, such as blank lines or curly braces.<br/>
+ Example: <code><br/>
+ <div class="fragment"><pre class="fragment">
+      5:   85:bool Matrix::isSymmetric() const
+      -:   86:{
+      5:   87:  if(nrows_ != ncols_)
+  #####:   88:    return false;
+      -:   89:
+     30:   90:  for(int r=0; r&lt;nrows_; r++)
+      -:   91:  {
+    150:   92:    for(int c=0; c&lt;ncols_; c++)
+      -:   93:    {
+    125:   94:      if(data_[r][c] != data_[c][r])
+  #####:   95:        return false;
+      -:   96:    }
+      -:   97:  }
+      -:   98:
+      5:   99:  return true;
+      -:  100:}
+   </pre></div> </code> </li>
+</ol>
+<h3><a class="anchor" id="food_sec">
+Food for thought..</a></h3>
+<ul>
+<li>What percentage of <a class="el" href="_morpheus___vector_8cpp.html" title="Defines a Vector class.">Morpheus_Vector.cpp</a> and <a class="el" href="_morpheus___matrix_8cpp.html" title="Defines a Matrix class.">Morpheus_Matrix.cpp</a> did gcov report was being tested?</li>
+<li>How much confidence do you have that my code is correct?</li>
+<li>If we had 100% code coverage, would that mean there were no bugs? Why?</li>
+<li>Which of the following Vector functions are tested?<ul>
+<li>Constructor</li>
+<li>Destructor</li>
+<li>Subscript operator</li>
+<li>Const subscript operator</li>
+<li>getNumElements</li>
+<li>setValue</li>
+<li>scale</li>
+<li>add</li>
+<li>dot</li>
+<li>norm1</li>
+<li>normInf</li>
+<li>norm2</li>
+</ul>
+</li>
+<li>Are the two tests that exist for the Vector class good?</li>
+<li>What types of data did I ignore?</li>
+<li>What kinds of errors could occur as a result of me ignoring those types of data?</li>
+<li>For which of the following vectors would the 1-norm function produce the correct result? The infinity-norm? The 2-norm?<br/>
+ <img class="formulaInl" alt="$\left[\begin{array}{r}1\\2\\3\end{array}\right]$" src="form_1.png"/> <img class="formulaInl" alt="$\left[\begin{array}{r}1\\0\\0\end{array}\right]$" src="form_2.png"/> <img class="formulaInl" alt="$\left[\begin{array}{r}-1\\0\\0\end{array}\right]$" src="form_3.png"/></li>
+<li>Which of the following Matrix functions are tested?<ul>
+<li>Constructor</li>
+<li>Destructor</li>
+<li>Subscript operator</li>
+<li>getNumRows</li>
+<li>getNumCols</li>
+<li>getNumEntries</li>
+<li>Matrix-vector multiply</li>
+<li>Matrix-matrix multiply</li>
+<li>isSymmetric</li>
+<li>isUpperTriangular</li>
+<li>approxEqual</li>
+<li>norm1</li>
+<li>normInf</li>
+<li>print</li>
+</ul>
+</li>
+<li>Is it sufficient to test the isUpperTriangular function with the identity matrix? Why?</li>
+<li>If my tests failed, would it be easy to track down the source of the problem? What could I do to make it easier?</li>
+</ul>
+<h2><a class="anchor" id="doxy_sec">
+Doxygen</a></h2>
+<p>To create the html pages you're currently looking at, all you have to do is type <code>doxygen</code> in the source directory. (Doxygen is already installed on Vesta.) It reads <code>Doxyfile</code>, which I generated with <code>doxywizard</code> on my workstation and checked into the repository. Alternatively, you can generate such files by hand.</p>
+<h3><a class="anchor" id="latex_sec">
+Didn't you say Doxygen can generate LaTeX manuals?</a></h3>
+ 
+ Yes.  You can find the one for this site
+ <a href=refman.pdf>here</a>.
+  <h2><a class="anchor" id="gui_sec">
+What about the beautiful GUIs you showed us?</a></h2>
+<p><code>lcov</code> and <code>doxywizard</code> are great tools for a personal workstation, but not-so-great tools for computing clusters. I personally prefer using the GUIs, but it's important to know how to use <code>gcov</code> and <code>doxygen</code> too, since they're available on more systems. If you desperately need the HTML files generated by <code>lcov</code>, they are available <a href="lcovFiles/index.html">here</a>. </p>
 </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
