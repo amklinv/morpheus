@@ -139,7 +139,7 @@ double Vector::normInf() const
 
 double Vector::norm2() const
 {
-  double sum;
+  double sum = 0;
 
   // Compute the sum of squares
   for(int i=0; i<numElements_; i++)
