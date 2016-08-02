@@ -172,16 +172,119 @@ private:
  * contains a dense matrix and dense vector class, but we hope to
  * expand its features as it grows in popularity.
  *
- * \section other_sec How does Morpheus compare to other linear algebra packages?
- * It has way fewer features, but what we lack in features, we make up
- * for in bugs.
+ * Okay, so Morpheus is really just a test project for an ATPESC
+ * tutorial...but at least it has a cool name!
  *
- * \section cool_sec Is Morpheus greater than sliced bread?
- * That's not even a fair question.  Morpheus is the best thing that's
- * ever happened to math since the discovery of 0.  Speaking of which,
- * the history of the number 0 is super-cool and can be found here:
- * https://en.wikipedia.org/wiki/0_%28number%29#History
+ * \section gcov_section gcov tutorial
+ * -# Please log in to vesta\n
+ *    <tt>ssh \<username\>\@vesta.alcf.anl.gov</tt>
+ * -# Clone the Morpheus repository\n
+ *    <tt>git clone https://github.com/amklinv/morpheus.git</tt>
+ * -# Build the tests\n
+ *    <tt>cd morpheus</tt>\n
+ *    <tt>make</tt>\n
+ *    Note that the proper coverage flags have been added to your
+ *    makefile.  Also note that this step generates a set of .gcno
+ *    files for you.
+ * -# Run the tests\n
+ *    <tt>./runtests</tt>\n
+ *    <tt>runtests</tt> is a perl script which runs the three tests
+ *    for you.  This step generates the .gcda files.
+ * -# Run gcov on the Morpheus source code\n
+ *    <tt>gcov *.cpp</tt>\n
+ *    Ignore the system files; we are not responsible for testing
+ *    them.  This will generate our .gcov files
+ * -# Examine Morpheus_Vector.cpp.gcov and Morpheus_Matrix.cpp.gcov\n
+ *    These are regular text files, so you may use your text editor
+ *    of choice (vim, emacs, eclipse...or you can just <tt>cat</tt>
+ *    the file).  Lines that have been tested are marked by the number
+ *    of times they were executed.  Lines that have NOT been tested
+ *    are preceeded by <tt>#####</tt>.  Dashes denote lines that
+ *    contain no instructions, such as blank lines or curly braces.\n
+ *    Example:
+ *    <tt>\n
+ *    \verbatim
+      5:   85:bool Matrix::isSymmetric() const
+      -:   86:{
+      5:   87:  if(nrows_ != ncols_)
+  #####:   88:    return false;
+      -:   89:
+     30:   90:  for(int r=0; r<nrows_; r++)
+      -:   91:  {
+    150:   92:    for(int c=0; c<ncols_; c++)
+      -:   93:    {
+    125:   94:      if(data_[r][c] != data_[c][r])
+  #####:   95:        return false;
+      -:   96:    }
+      -:   97:  }
+      -:   98:
+      5:   99:  return true;
+      -:  100:}
+   \endverbatim
+   </tt>
+ * \subsection food_sec Food for thought..
+ * - What percentage of Morpheus_Vector.cpp and Morpheus_Matrix.cpp
+ *   did gcov report was being tested?
+ * - How much confidence do you have that my code is correct?
+ * - If we had 100% code coverage, would that mean there were no bugs?
+ *   Why?
+ * - Which of the following Vector functions are tested?
+ *   - Constructor
+ *   - Destructor
+ *   - Subscript operator
+ *   - Const subscript operator
+ *   - getNumElements
+ *   - setValue
+ *   - scale
+ *   - add
+ *   - dot
+ *   - norm1
+ *   - normInf
+ *   - norm2
+ * - Are the two tests that exist for the Vector class good?
+ * - What types of data did I ignore?
+ * - What kinds of errors could occur as a result of me ignoring
+ *   those types of data?
+ * - For which of the following vectors would the 1-norm function
+ *   produce the correct result?  The infinity-norm?  The 2-norm?\n
+ *   \f$\left[\begin{array}{r}1\\2\\3\end{array}\right]\f$
+ *   \f$\left[\begin{array}{r}1\\0\\0\end{array}\right]\f$
+ *   \f$\left[\begin{array}{r}-1\\0\\0\end{array}\right]\f$
+ * - Which of the following Matrix functions are tested?
+ *   - Constructor
+ *   - Destructor
+ *   - Subscript operator
+ *   - getNumRows
+ *   - getNumCols
+ *   - getNumEntries
+ *   - Matrix-vector multiply
+ *   - Matrix-matrix multiply
+ *   - isSymmetric
+ *   - isUpperTriangular
+ *   - approxEqual
+ *   - norm1
+ *   - normInf
+ *   - print
+ * - Is it sufficient to test the isUpperTriangular function with the
+ *   identity matrix?  Why?
+ * - If my tests failed, would it be easy to track down the source of
+ *   the problem?  What could I do to make it easier?
  *
- * \section point_sec Is this entire project just a Doxygen exercise?
- * No.  It is also an exercise on using code coverage tools such as gcov.
+ * \section doxy_sec Doxygen
+ * To create the html pages you're currently looking at, all you have
+ * to do is type <tt>doxygen</tt> in the source directory.  (Doxygen
+ * is already installed on Vesta.)  It reads <tt>Doxyfile</tt>, which
+ * I generated with <tt>doxywizard</tt> on my workstation and checked
+ * into the repository.  Alternatively, you can generate such files by
+ * hand.
+ *
+ * \section gui_sec What about the beautiful GUIs you showed us?
+ * <tt>lcov</tt> and <tt>doxywizard</tt> are great tools for a personal
+ * workstation, but not-so-great tools for computing clusters.  I
+ * personally prefer using the GUIs, but it's important to know how to
+ * use <tt>gcov</tt> and <tt>doxygen</tt> too, since they're available
+ * on more systems.  If you desperately need the HTML files generated
+ * by <tt>lcov</tt>, they are available
+ * <a href="../../lcovFiles/index.html">here</a>.
+ *
  */
