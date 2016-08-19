@@ -50,8 +50,12 @@ int main()
     testPassed = false;
   }
 
-  if(testPassed)
+  if(testPassed) {
     std::cout << "Add/scale test: PASSED!\n";
-  else
+    return EXIT_SUCCESS;
+  }
+  else {
     std::cout << "Add/scale test: FAILED!\n";
+    return EXIT_FAILURE;
+  }
 }

@@ -2,6 +2,13 @@
 use strict;
 use warnings;
 
-system('./Morpheus_Vector_normTest.exe | grep -q FAILED');
+my $exitval = 0;
+
+system('./Morpheus_Vector_normTest.exe');
+$exitval = $exitval | $?;
 system('./Morpheus_Vector_addScaleTest.exe');
+$exitval = $exitval | $?;
 system('./Morpheus_Matrix_Tests.exe');
+$exitval = $exitval | $?;
+
+exit $exitval;

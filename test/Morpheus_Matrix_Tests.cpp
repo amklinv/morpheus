@@ -63,9 +63,12 @@ int main()
     testPassed = false;
   }
 
-  if(testPassed)
+  if(testPassed) {
     std::cout << "Matrix test: PASSED!\n";
-  else
+    return EXIT_SUCCESS;
+  }
+  else {
     std::cout << "Matrix test: FAILED!\n";
-
+    return EXIT_FAILURE;
+  }
 }

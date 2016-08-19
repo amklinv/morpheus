@@ -8,6 +8,7 @@
 #include "Morpheus_Vector.h"
 #include <cmath>
 #include <iostream>
+#include "stdlib.h"
 
 // Returns true if | a-b | < tol, false otherwise
 bool approxEqual(double a, double b, double tol);
@@ -51,10 +52,14 @@ int main()
     testPassed = false;
   }
 
-  if(testPassed)
+  if(testPassed) {
     std::cout << "Norm test: PASSED!\n";
-  else
+    return EXIT_SUCCESS;
+  }
+  else {
     std::cout << "Norm test: FAILED!\n";
+    return EXIT_FAILURE;
+  }
 }
 
 
