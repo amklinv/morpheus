@@ -1,3 +1,19 @@
 language: cpp
 
 script: make && ./runtests.pl
+
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "jvR80k2s8MyX/rAdO9XiH0hlX0O5mogSiIEv+sLKVN1CLUM64qKxMIsfQHcz9lfKfFSCTd5030+jnOi9Dc6ShcuubPOBR3rXnc1rBVbW6hT3fP9f0/SHm0YJMEvYCWzyuwvm0rLpB4UFVduE+qbSmgHpMbOXT5NrAlyLuu1GtiXLS0tmalXEB4DgxM840sJAPv+1ezXAvKCLUMVEY9GgVXZRSiGNjk/jxBaQHxLZCCmvs2tZDtPrvVgbN0Y3yd3lNpMRXne3Q1/xwWe2k+eNIv934/057aE/KR7hEbFaZuRo1zZwJhzUw8igdJxbwdS4UqNvNZSlOITvXf9syHb3FM6miFlvWutHQf4oxhVNCgKwb1VsfFY5eY3/ihizWIu7NVGVpoqP6hl9J7R7ehNP+szO50nzD/WN4ELWHkAzONVUcKQXndlbyO09hAHjnJUM0zFylxE/vTY1ePjeV7TiFQ6Y2Qv2q6BmqZKcrOxet1Q1AIVsTClZ2EVL/rjccbPn9Vldwao/W/BK5pYvyego4D3iSUL3w2VucM6LuKu7vp7eh3zfBQDftLepTf4cbBKfOk+PxIu9QYQPvR1o9VdkwjhtDiK6cLnRkM+qV4dqnbe5iB5aBpUUnhrW+r4fXgXB5pleXBlp7tSVqe81vhEaytnbJ7tT8wk90z8wwoki7gU="
+
+addons:
+  coverity_scan:
+    project:
+      name: "amklinv/morpheus"
+      description: "Build submitted via Travis CI"
+    notification_email: amklinv@sandia.gov
+    build_command_prepend: "./configure; make clean"
+    build_command:   "make"
+    branch_pattern: coverity_scan
