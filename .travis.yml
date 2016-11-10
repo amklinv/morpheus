@@ -1,3 +1,11 @@
 language: cpp
 
+os:
+  - linux
+  - osx
+  
+compiler:
+  - g++
+  - clang
+
 script: make && ./runtests.pl
