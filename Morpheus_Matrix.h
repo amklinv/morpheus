@@ -172,7 +172,7 @@ private:
   int ncols_;
   //! Pointer to raw data
   double** data_;
-};
+}
 
 } /* namespace Morpheus */
 #endif /* MORPHEUS_MATRIX_H_ */
